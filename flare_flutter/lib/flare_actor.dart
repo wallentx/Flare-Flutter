@@ -167,11 +167,6 @@ class FlareActor extends LeafRenderObjectWidget {
   }
 
   @override
-  void didUnmountRenderObject(covariant FlareActorRenderObject renderObject) {
-    renderObject.dispose();
-  }
-
-  @override
   void updateRenderObject(
       BuildContext context, covariant FlareActorRenderObject renderObject) {
     renderObject
@@ -266,12 +261,7 @@ class FlareActorRenderObject extends FlareRenderBox {
       if (_actor != null) {
         _artboard.overrideColor = value == null
             ? null
-            : Float32List.fromList([
-                value.red / 255.0,
-                value.green / 255.0,
-                value.blue / 255.0,
-                value.opacity
-              ]);
+            : Float32List.fromList([value.r, value.g, value.b, value.a]);
       }
       markNeedsPaint();
     }
@@ -462,12 +452,7 @@ class FlareActorRenderObject extends FlareRenderBox {
     intrinsicSize = Size(artboard.width, artboard.height);
     _artboard.overrideColor = _color == null
         ? null
-        : Float32List.fromList([
-            _color!.red / 255.0,
-            _color!.green / 255.0,
-            _color!.blue / 255.0,
-            _color!.opacity
-          ]);
+        : Float32List.fromList([_color!.r, _color!.g, _color!.b, _color!.a]);
     _artboard.antialias = _useAntialias;
     _controller?.initialize(_artboard);
     _animationLayers.clear();

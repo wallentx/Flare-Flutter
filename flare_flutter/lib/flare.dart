@@ -992,7 +992,7 @@ class FlutterColorFill extends ColorFill with FlutterFill {
 
   set uiColor(Color c) {
     color = Float32List.fromList(
-        [c.red / 255, c.green / 255, c.blue / 255, c.opacity]);
+        [c.r, c.g, c.b, c.a]);
   }
 
   @override
@@ -1026,7 +1026,7 @@ class FlutterColorStroke extends ColorStroke with FlutterStroke {
 
   set uiColor(Color c) {
     color = Float32List.fromList(
-        [c.red / 255, c.green / 255, c.blue / 255, c.opacity]);
+        [c.r, c.g, c.b, c.a]);
   }
 
   @override

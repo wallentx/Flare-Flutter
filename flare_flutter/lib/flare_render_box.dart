@@ -95,7 +95,8 @@ abstract class FlareRenderBox extends RenderBox {
   @override
   void detach() {
     super.detach();
-    dispose();
+    updatePlayState();
+    _unload();
   }
 
   @override
@@ -269,6 +270,7 @@ abstract class FlareRenderBox extends RenderBox {
       _lastFrameTime = _notPlayingFlag;
       if (_frameCallbackID != -1) {
         SchedulerBinding.instance.cancelFrameCallbackWithId(_frameCallbackID);
+        _frameCallbackID = -1;
       }
     }
   }
@@ -279,6 +281,11 @@ abstract class FlareRenderBox extends RenderBox {
 
   void _beginFrame(Duration timestamp) {
     _frameCallbackID = -1;
+    if (!attached) {
+      _lastFrameTime = _notPlayingFlag;
+      return;
+    }
+
     final double t = timestamp.inMicroseconds / Duration.microsecondsPerSecond;
     double elapsedSeconds =
         _lastFrameTime == _notPlayingFlag ? 0.0 : t - _lastFrameTime;
